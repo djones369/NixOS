@@ -5,7 +5,9 @@
 { config, pkgs, ... }:
 
 let 
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz";
+  # home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz";
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/master.tar.gz";
+
 in 
 
 {
@@ -67,6 +69,7 @@ in
 
   # Enable Cosmic Desktop environment 
   # services.displayManager.sddm.enable = true;
+  # services.displayManager.sddm.wayland.enable = true;
   # services.desktopManager.cosmic.enable = true;
 
   # Enable the qtile window manager (optional; LightDM lets you pick it at login)
@@ -103,10 +106,15 @@ in
     ];
   };
 
-  # Enable Scanning
+  # Enable Epson & HP Scanning
+  services.udev.packages = [ pkgs.utsushi ];
+  
   hardware.sane = {
-    enable = true;                      # enables scanner support
-    extraBackends = [ pkgs.epkowa ];    # Epson backend for ES-400
+    enable = true;  # enables support for SANE scanners
+    extraBackends = [
+      pkgs.epkowa          # Epson ES-400 backend
+      pkgs.hplipWithPlugin # HP scanners (requires proprietary plugin)
+    ];
   };
 
   # Enable sound with pipewire.
@@ -139,11 +147,6 @@ in
     rustdesk-server
     ];
   };
-
-  environment.variables.PATH = [
-    "${config.users.users.dave.home}/.emacs.d/bin"
-  ];
-
 
   # Install firefox.
   programs.firefox.enable = true;
@@ -209,7 +212,7 @@ virtualisation.libvirtd = {
   enable = true;
   qemu = {
     package = pkgs.qemu_kvm;
-    ovmf.enable = true;
+    # ovmf.enable = true; # Don't need in Unstable
     swtpm.enable = true;
   };
 };
@@ -253,7 +256,7 @@ programs.virt-manager.enable = true;
   nix.gc = {
     automatic = true;
     dates = "weekly";                 # or "monthly", "daily", "Sat 03:00", etc.
-    options = "--delete-older-than 14d";
+    options = "--delete-older-than 10d";
   };
 
 # ---  Keep the /nix/store tidy automatically --- #
