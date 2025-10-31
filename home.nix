@@ -64,6 +64,7 @@
       switch = "sudo nixos-rebuild switch";
       upgrade = "sudo nixos-rebuild switch --upgrade";
       btw = "echo I use NixOS btw";
+      cls = "clear && fastfetch -c paleofetch";
       ll = "ls -alF";
       la = "ls -A";
       l = "ls -CF";
@@ -92,18 +93,18 @@
   ########################################
   # 5) Programs (CLI)
   ########################################
-  programs.git = {
+  programs.git.settings = {
     enable = true;
-    userName = "djones369";
-    userEmail = "djones369@gmail.com"; # <- change to your real address
+    userme = "djones369";
+    user.email = "djones369@gmail.com"; # <- change to your real address
     extraConfig = {
       init.defaultBranch = "main";
       pull.rebase = false;
     };
   };
 
-  programs.ssh = {
-    enable = true;
+  programs.ssh.enableDefaultConfig = {
+    enable = false;
     # matchBlocks."github.com" = { user = "git"; }; # example
   };
 
@@ -114,6 +115,25 @@
 
   programs.fzf.enable = true;
   programs.htop.enable = true;
+
+
+  ##### Neovim #####
+    programs.neovim = {
+      enable = true;
+      # extraConfig = "set number relativenumber"; # Example: add basic VimL config
+      # extraLuaConfig = "vim.opt.relativenumber = true"; # Example: add basic Lua config
+      plugins = with pkgs.vimPlugins; [ # Example: manage plugins
+        telescope-nvim
+        nvim-treesitter.withAllGrammars
+        nvim-cmp
+        gruvbox-material
+        nvim-lspconfig
+        vim-commentary
+      ];
+    };
+
+
+
 
   ########################################
   # 6) GUI applications
@@ -197,8 +217,8 @@
     imagemagick # Image processing tools
 
   ##### Editors, Terminals & Notes #####
-    vim # Vi IMproved, a programmer's text editor
-    vimPlugins.LazyVim # Lazy loading plugin manager for Vim
+    # vim # Vi IMproved, a programmer's text editor
+    # vimPlugins.LazyVim # Lazy loading plugin manager for Vim
     geany # Lightweight IDE
     vscode # Visual Studio Code
     zed-editor # Zed text editor
@@ -259,16 +279,15 @@
     nerd-fonts.inconsolata # Inconsolata Nerd Font
     nerd-fonts.jetbrains-mono # JetBrains Mono Nerd Font
 
-  ##### Emacs & Doom Emacs #####
-    emacs
+  ##### Neovim Packages #####
+    fd
     ripgrep
-    emacsPackages.doom
-    emacsPackages.doom-themes
-    sqlite
-
-  ##### Qtile
-    lxappearance    
-
+  
+  ##### Qtile #####
+    lxappearance
+    picom
+    networkmanagerapplet
+    nitrogen
 
   ];  # <-- close the list AND add a semicolon
 
