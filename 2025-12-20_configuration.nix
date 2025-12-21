@@ -215,6 +215,7 @@ programs.virt-manager.enable = true;
   ########################################
 
   # Install the Extension Manager app for easy browsing/managing
+    gnome=tweaks
     gnome-extension-manager
   # Add specific extensions to your system
     gnomeExtensions.runcat
