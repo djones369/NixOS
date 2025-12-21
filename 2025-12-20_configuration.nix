@@ -204,18 +204,26 @@ programs.virt-manager.enable = true;
     };
   };
 
-
-
+  ########################################
+  # Packages
+  ########################################
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
+  ########################################
 
-  ########################################
-  # Packages
-  ########################################
-  # home.packages = with pkgs; [
+  # Install the Extension Manager app for easy browsing/managing
+    gnome-extension-manager
+  # Add specific extensions to your system
+    gnomeExtensions.runcat
+    gnomeExtensions.appindicator
+    gnomeExtensions.burn-my-windows
+    gnomeExtensions.caffeine
+    gnomeExtensions.screenshot-window-sizer
+    gnomeExtensions.ip-finder
+  
   ##### System Tools #####
     htop  # interactive process viewer
     fastfetch # fast system information tool
@@ -228,8 +236,6 @@ programs.virt-manager.enable = true;
     appimage-run # Run AppImage packages
     xdotool # Simulate keyboard input and mouse activity
     menulibre # Menu editor for desktop environments
-    rofi # Window switcher, application launcher, and dmenu replacement
-    flameshot # Screenshot tool
     gnome-software # GNOME software center
     gnome-disk-utility # Disk management utility
     epsonscan2
@@ -255,7 +261,6 @@ programs.virt-manager.enable = true;
     vlc # Multimedia player
     mpv # Media player
     yt-dlp # YouTube downloader
-    carla # Audio plugin host
     pwvucontrol # PipeWire volume control
     pipecontrol # PipeWire control tool
     wireplumber # PipeWire session manager
@@ -273,14 +278,10 @@ programs.virt-manager.enable = true;
     imagemagick # Image processing tools
 
   ##### Editors, Terminals & Notes #####
-    # vim # Vi IMproved, a programmer's text editor
-    # vimPlugins.LazyVim # Lazy loading plugin manager for Vim
-    geany # Lightweight IDE
     vscode # Visual Studio Code
     zed-editor # Zed text editor
     obsidian # Obsidian note-taking app
     ghostty # Ghost terminal emulator
-    mate.mate-terminal # MATE terminal emulator
     alacritty # Alacritty terminal emulator
     kitty # Kitty terminal emulator
 
@@ -334,18 +335,6 @@ programs.virt-manager.enable = true;
     nerd-fonts.hack # Hack Nerd Font
     nerd-fonts.inconsolata # Inconsolata Nerd Font
     nerd-fonts.jetbrains-mono # JetBrains Mono Nerd Font
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   ];
